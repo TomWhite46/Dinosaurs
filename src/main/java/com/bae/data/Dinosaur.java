@@ -15,7 +15,7 @@ public class Dinosaur {
 
 	@Override
 	public String toString() {
-		return "<tr><td><em>" + genus + "</em></td><td>" + length + "</td><td>" + eatsMeat + "</td></tr>";
+		return genus + ", " + length + "m, " + eatsMeat;
 	}
 
 	public int getLength() {

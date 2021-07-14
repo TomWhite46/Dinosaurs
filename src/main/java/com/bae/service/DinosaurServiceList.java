@@ -34,8 +34,7 @@ public class DinosaurServiceList implements DinosaurService {
 		for (Dinosaur dinosaur : dinosaurs) {
 			finalStr = finalStr + "\n" + dinosaur;
 		}
-		return "<table style=\"text-align:center;font-size:30;font-family:'Comic Sans MS';color:yellow;background-color:red\"><tr><th>Genus</th><th>Length(m)</th><th>Eats meat</th>"
-				+ finalStr + "</table>";
+		return finalStr;
 	}
 
 	@Override
