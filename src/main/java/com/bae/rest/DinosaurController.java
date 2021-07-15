@@ -1,5 +1,9 @@
 package com.bae.rest;
 
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -22,33 +26,44 @@ public class DinosaurController {
 		this.service = service;
 	}
 
-//	@GetMapping("/") // MAPS a GET request to "/" to this method
-//	public String hello() {
-//		return "<span style=\"color:green;font-size:120px;font-family:'Comic Sans MS';background:red;\">&#129430; <strong><em>Hello</em>, World!</strong> &#129429;</span>";
+//	@PostMapping("/create")
+//	public Dinosaur createDinosaur(@RequestBody Dinosaur dinosaur) {
+//		return this.service.createDinosaur(dinosaur);
 //	}
 
 	@PostMapping("/create")
-	public String createDinosaur(@RequestBody Dinosaur dinosaur) {
-		return this.service.createDinosaur(dinosaur);
+	public ResponseEntity<Dinosaur> createDino(@RequestBody Dinosaur dinosaur) {
+		Dinosaur created = this.service.createDinosaur(dinosaur);
+		return new ResponseEntity<>(created, HttpStatus.CREATED);
 	}
 
 	@GetMapping("/getall")
-	public String getDinosaurs() {
+	public List<Dinosaur> getDinosaurs() {
 		return this.service.getDinosaurs();
 	}
 
 	@GetMapping("/getid/{id}")
-	public String getDinosaurById(@PathVariable int id) {
+	public Dinosaur getDinosaurById(@PathVariable int id) {
 		return this.service.getDinosaurById(id);
 	}
 
+	@GetMapping("/getByGenus/{genus}")
+	public List<Dinosaur> getByGenus(@PathVariable String genus) {
+		return this.service.getByGenus(genus);
+	}
+
+	@GetMapping("/genusContains/{genus}")
+	public List<Dinosaur> genusContains(@PathVariable String genus) {
+		return this.service.genusContains(genus);
+	}
+
 	@PatchMapping("/updatelength/{id}")
-	public String editDinosaur(@PathVariable int id, @RequestBody int length) {
+	public Dinosaur editDinosaur(@PathVariable int id, @RequestBody int length) {
 		return this.service.editDinosaur(id, length);
 	}
 
 	@PutMapping("/replace/{id}")
-	public String replaceDinosaur(@PathVariable int id, @RequestBody Dinosaur dinosaur) {
+	public Dinosaur replaceDinosaur(@PathVariable int id, @RequestBody Dinosaur dinosaur) {
 		return this.service.replaceDinosaur(id, dinosaur);
 	}
 

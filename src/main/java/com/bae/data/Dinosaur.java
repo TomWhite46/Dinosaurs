@@ -1,6 +1,16 @@
 package com.bae.data;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Dinosaur {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 
 	private String genus;
 	private int length;
@@ -13,9 +23,21 @@ public class Dinosaur {
 		this.eatsMeat = eatsMeat;
 	}
 
+	public Dinosaur() {
+
+	}
+
 	@Override
 	public String toString() {
 		return genus + ", " + length + "m, " + eatsMeat;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getLength() {

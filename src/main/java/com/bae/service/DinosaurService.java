@@ -1,20 +1,26 @@
 package com.bae.service;
 
+import java.util.List;
+
 import com.bae.data.Dinosaur;
 
 public interface DinosaurService {
 
-	public String createDinosaur(Dinosaur dinosaur);
+	public Dinosaur createDinosaur(Dinosaur dinosaur);
 
-	public String getDinosaurs();
+	public List<Dinosaur> getDinosaurs();
 
-	public String getDinosaurById(int id);
+	public Dinosaur getDinosaurById(int id);
 
-	public String editDinosaur(int id, int length);
+	public Dinosaur editDinosaur(int id, int length);
 
-	public String replaceDinosaur(int id, Dinosaur dinosaur);
+	public Dinosaur replaceDinosaur(int id, Dinosaur dinosaur);
 
 	public String deleteDinosaur(int id);
 
 	public String deleteAll();
+
+	List<Dinosaur> getByGenus(String genus);
+
+	List<Dinosaur> genusContains(String genus);
 }
