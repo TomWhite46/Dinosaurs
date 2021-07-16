@@ -26,11 +26,6 @@ public class DinosaurController {
 		this.service = service;
 	}
 
-//	@PostMapping("/create")
-//	public Dinosaur createDinosaur(@RequestBody Dinosaur dinosaur) {
-//		return this.service.createDinosaur(dinosaur);
-//	}
-
 	@PostMapping("/create")
 	public ResponseEntity<Dinosaur> createDino(@RequestBody Dinosaur dinosaur) {
 		Dinosaur created = this.service.createDinosaur(dinosaur);
@@ -38,13 +33,15 @@ public class DinosaurController {
 	}
 
 	@GetMapping("/getall")
-	public List<Dinosaur> getDinosaurs() {
-		return this.service.getDinosaurs();
+	public ResponseEntity<List<Dinosaur>> getDinosaurs() {
+		List<Dinosaur> allDinos = this.service.getDinosaurs();
+		return new ResponseEntity<>(allDinos, HttpStatus.OK);
 	}
 
 	@GetMapping("/getid/{id}")
-	public Dinosaur getDinosaurById(@PathVariable int id) {
-		return this.service.getDinosaurById(id);
+	public ResponseEntity<Dinosaur> getDinosaurById(@PathVariable int id) {
+		Dinosaur found = this.service.getDinosaurById(id);
+		return new ResponseEntity<>(found, HttpStatus.OK);
 	}
 
 	@GetMapping("/getByGenus/{genus}")
@@ -53,28 +50,34 @@ public class DinosaurController {
 	}
 
 	@GetMapping("/genusContains/{genus}")
-	public List<Dinosaur> genusContains(@PathVariable String genus) {
-		return this.service.genusContains(genus);
+	public ResponseEntity<List<Dinosaur>> genusContains(@PathVariable String genus) {
+		List<Dinosaur> foundDinos = this.service.genusContains(genus);
+		return new ResponseEntity<>(foundDinos, HttpStatus.OK);
+
 	}
 
 	@PatchMapping("/updatelength/{id}")
-	public Dinosaur editDinosaur(@PathVariable int id, @RequestBody int length) {
-		return this.service.editDinosaur(id, length);
+	public ResponseEntity<Dinosaur> editDinosaur(@PathVariable int id, @RequestBody int length) {
+		Dinosaur updated = this.service.editDinosaur(id, length);
+		return new ResponseEntity<>(updated, HttpStatus.ACCEPTED);
 	}
 
 	@PutMapping("/replace/{id}")
-	public Dinosaur replaceDinosaur(@PathVariable int id, @RequestBody Dinosaur dinosaur) {
-		return this.service.replaceDinosaur(id, dinosaur);
+	public ResponseEntity<Dinosaur> replaceDinosaur(@PathVariable int id, @RequestBody Dinosaur dinosaur) {
+		Dinosaur replacement = this.service.replaceDinosaur(id, dinosaur);
+		return new ResponseEntity<>(replacement, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/delete/{id}")
-	public String deleteDinosaur(@PathVariable int id) {
-		return this.service.deleteDinosaur(id);
+	public ResponseEntity<String> deleteDinosaur(@PathVariable int id) {
+		String body = this.service.deleteDinosaur(id);
+		return new ResponseEntity<>(body, HttpStatus.NO_CONTENT);
 	}
 
 	@DeleteMapping("/meteor")
-	public String deleteAll() {
-		return this.service.deleteAll();
+	public ResponseEntity<String> deleteAll() {
+		String delAll = this.service.deleteAll();
+		return new ResponseEntity<>(delAll, HttpStatus.NO_CONTENT);
 	}
 
 }

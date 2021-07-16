@@ -62,7 +62,7 @@ public class DinosaurServiceDB implements DinosaurService {
 
 		found.setGenus(newDinosaur.getGenus());
 		found.setLength(newDinosaur.getLength());
-		found.setEatsMeat(newDinosaur.isEatsMeat());
+		found.setCarnivore(newDinosaur.isCarnivore());
 
 		Dinosaur updated = this.repo.save(found);
 

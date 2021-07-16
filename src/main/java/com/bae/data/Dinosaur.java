@@ -14,13 +14,21 @@ public class Dinosaur {
 
 	private String genus;
 	private int length;
-	private boolean eatsMeat;
+	private boolean carnivore;
 
-	public Dinosaur(String genus, int length, boolean eatsMeat) {
+	public Dinosaur(int id, String genus, int length, boolean carnivore) {
+		super();
+		this.id = id;
+		this.genus = genus;
+		this.length = length;
+		this.carnivore = carnivore;
+	}
+
+	public Dinosaur(String genus, int length, boolean carnivore) {
 		super();
 		this.genus = genus;
 		this.length = length;
-		this.eatsMeat = eatsMeat;
+		this.carnivore = carnivore;
 	}
 
 	public Dinosaur() {
@@ -29,7 +37,7 @@ public class Dinosaur {
 
 	@Override
 	public String toString() {
-		return genus + ", " + length + "m, " + eatsMeat;
+		return genus + ", " + length + "m, " + carnivore;
 	}
 
 	public int getId() {
@@ -56,12 +64,12 @@ public class Dinosaur {
 		this.genus = genus;
 	}
 
-	public boolean isEatsMeat() {
-		return eatsMeat;
+	public boolean isCarnivore() {
+		return carnivore;
 	}
 
-	public void setEatsMeat(boolean eatsMeat) {
-		this.eatsMeat = eatsMeat;
+	public void setCarnivore(boolean carnivore) {
+		this.carnivore = carnivore;
 	}
 
 }
