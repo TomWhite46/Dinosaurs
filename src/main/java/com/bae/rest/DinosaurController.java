@@ -65,7 +65,7 @@ public class DinosaurController {
 	@PutMapping("/replace/{id}")
 	public ResponseEntity<Dinosaur> replaceDinosaur(@PathVariable int id, @RequestBody Dinosaur dinosaur) {
 		Dinosaur replacement = this.service.replaceDinosaur(id, dinosaur);
-		return new ResponseEntity<>(replacement, HttpStatus.OK);
+		return new ResponseEntity<>(replacement, HttpStatus.ACCEPTED);
 	}
 
 	@DeleteMapping("/delete/{id}")

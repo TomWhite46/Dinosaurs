@@ -17,6 +17,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.springframework.test.web.servlet.MockMvc;
@@ -32,6 +33,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 		"classpath:dinosaur-data.sql" }, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
 
 @AutoConfigureMockMvc
+
+@ActiveProfiles("test")
+
 public class DinosaurControllerIntegrationTest {
 
 	@Autowired
@@ -152,18 +156,20 @@ public class DinosaurControllerIntegrationTest {
 	@Test
 	void testReplace() throws Exception {
 		// Replacement dino
-		Dinosaur newDino = new Dinosaur("Argentinosaurus", 40, false);
-		String newDinoJSON = this.mapper.writeValueAsString(newDino);
+		Dinosaur replacementDino = new Dinosaur("Argentinosaurus", 40, false);
+		String replacementDinoJSON = this.mapper.writeValueAsString(replacementDino);
 
 		// create request
-		RequestBuilder request = put("/replace/1").contentType(MediaType.APPLICATION_JSON).content(newDinoJSON);
+		RequestBuilder request = put("/replace/1").contentType(MediaType.APPLICATION_JSON).content(replacementDinoJSON);
 
 		// create response
-		ResultMatcher checkStatus = status().is(200);
+		// status code
+		ResultMatcher checkStatus = status().is(202);
 
-		newDino.setId(1);
-		newDinoJSON = this.mapper.writeValueAsString(newDino);
-		ResultMatcher checkBody = content().json(newDinoJSON);
+		// body (the replacement as JSON)
+		Dinosaur testReplacementDino = new Dinosaur(1, "Argentinosaurus", 40, false); // create test dino
+		String testReplacementDinoAsJSON = this.mapper.writeValueAsString(testReplacementDino);
+		ResultMatcher checkBody = content().json(testReplacementDinoAsJSON);
 
 		// check response
 		this.mockMVC.perform(request).andExpect(checkStatus).andExpect(checkBody);
