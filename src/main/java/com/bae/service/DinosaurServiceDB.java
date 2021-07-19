@@ -72,13 +72,25 @@ public class DinosaurServiceDB implements DinosaurService {
 	@Override
 	public String deleteDinosaur(int id) {
 		this.repo.deleteById(id);
-		return "Deleted: " + id;
+
+		if (this.repo.existsById(id)) {
+			return "Not deleted: " + id;
+		} else {
+			return "Deleted: " + id;
+		}
+
 	}
 
 	@Override
 	public String deleteAll() {
 		this.repo.deleteAll();
-		return "Your dinosaurs are now extinct.";
+
+		if (this.repo.count() == 0) {
+			return "Your dinosaurs are now extinct.";
+		} else {
+			return "Some dinosaurs survived the meteor!";
+		}
+
 	}
 
 }
